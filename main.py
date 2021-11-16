@@ -19,7 +19,7 @@ running = True
 while running:
 
     # apply bg image
-    screen.blit(background, (0,0))
+    screen.blit(background, (0, 0))
 
     # apply player image
     screen.blit(game.player.image, game.player.rect)
@@ -31,12 +31,18 @@ while running:
     # apply the images of the group of projectiles
     game.player.all_projectiles.draw(screen)
 
+    # apply the images of the group of monsters
+    game.all_monsters.draw(screen)
+
+    # collect the monsters
+    for monster in game.all_monsters:
+        monster.move_forward()
+
     # check if arrow keys are pressed
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
         game.player.move_right()
     elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
         game.player.move_left()
-
 
     # update the screen
     pygame.display.flip()
@@ -48,7 +54,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-
 
         # if player press a key
         elif event.type == pygame.KEYDOWN:

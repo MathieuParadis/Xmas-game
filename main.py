@@ -24,6 +24,13 @@ while running:
     # apply player image
     screen.blit(game.player.image, game.player.rect)
 
+    # collect the projectiles of the player
+    for projectile in game.player.all_projectiles:
+        projectile.move()
+
+    # apply the images of the group of projectiles
+    game.player.all_projectiles.draw(screen)
+
     # check if arrow keys are pressed
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
         game.player.move_right()
@@ -46,5 +53,9 @@ while running:
         # if player press a key
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
+
+            if event.key == pygame.K_SPACE:
+                game.player.launch_projectile()
+
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False

@@ -37,6 +37,7 @@ while running:
     # collect the monsters
     for monster in game.all_monsters:
         monster.move_forward()
+        monster.update_health_bar(screen)
 
     # check if arrow keys are pressed
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():

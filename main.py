@@ -10,6 +10,19 @@ screen = pygame.display.set_mode((1080, 720))
 # load background image
 background = pygame.image.load('assets/bg.png')
 
+# load banner image
+banner = pygame.image.load('assets/banner.png')
+banner_rect = banner.get_rect()
+banner_rect.x = (screen.get_width() / 2.0) - (banner.get_width() / 2.0)
+banner_rect.y = (screen.get_height() / 2.0) - (banner.get_height() / 2.0)
+
+# load play button
+play_button = pygame.image.load('assets/play.jpg')
+play_button = pygame.transform.scale(play_button, (400, 200))
+play_button_rect = play_button.get_rect()
+play_button_rect.x = (screen.get_width() / 2.0) - (play_button.get_width() / 2.0)
+play_button_rect.y = (screen.get_height() / 2.0) - (play_button.get_height() / 2.0) + 150
+
 # launch game
 game = Game()
 
@@ -21,32 +34,12 @@ while running:
     # apply bg image
     screen.blit(background, (0, 0))
 
-    # apply player image
-    screen.blit(game.player.image, game.player.rect)
-
-    # update player health bar
-    game.player.update_health_bar(screen)
-
-    # collect the projectiles of the player
-    for projectile in game.player.all_projectiles:
-        projectile.move()
-
-    # apply the images of the group of projectiles
-    game.player.all_projectiles.draw(screen)
-
-    # apply the images of the group of monsters
-    game.all_monsters.draw(screen)
-
-    # collect the monsters
-    for monster in game.all_monsters:
-        monster.move_forward()
-        monster.update_health_bar(screen)
-
-    # check if arrow keys are pressed
-    if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
-        game.player.move_right()
-    elif game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
-        game.player.move_left()
+    # check if the game started or not
+    if game.is_playing:
+        game.update(screen)
+    else:
+        screen.blit(play_button, play_button_rect)
+        screen.blit(banner, banner_rect)
 
     # update the screen
     pygame.display.flip()
@@ -68,3 +61,8 @@ while running:
 
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            # check if the mouse if in contact with play_button
+            if play_button_rect.collidepoint(event.pos):
+                game.start_game()

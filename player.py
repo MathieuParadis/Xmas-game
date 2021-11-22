@@ -45,3 +45,8 @@ class Player(pygame.sprite.Sprite):
         if self.health > 0:
             self.health -= amount
 
+        else:
+            self.game.game_over()
+
+
+

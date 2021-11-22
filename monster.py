@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class Monster(pygame.sprite.Sprite):
@@ -8,10 +9,11 @@ class Monster(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 5
-        self.velocity = 5
+        self.velocity = random.randint(1, 4)
         self.image = pygame.image.load('assets/snowman.png')
         self.image = pygame.transform.scale(self.image, (180, 180))
         self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, 30)
         self.rect.y = 510
 
     def receive_damage(self, amount):
@@ -19,8 +21,14 @@ class Monster(pygame.sprite.Sprite):
 
         # check if its health is <= 0
         if not self.health > 0:
-            # delete monster
-            self.game.all_monsters.remove(self)
+            # # delete monster
+            # self.game.all_monsters.remove(self)
+
+            # reappear as a new monster
+            self.rect.x = random.randint(0, 30)
+            self.velocity = random.randint(1, 3)
+            self.health = self.max_health
+
 
     def update_health_bar(self, surface):
         # define color of health bar and its background
@@ -38,3 +46,6 @@ class Monster(pygame.sprite.Sprite):
     def move_forward(self):
         if not self.game.check_collision(self, self.game.all_players):
             self.rect.x += self.velocity
+
+        else:
+            self.game.player.receive_damage(self.attack)

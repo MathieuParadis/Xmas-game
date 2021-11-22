@@ -40,3 +40,8 @@ class Player(pygame.sprite.Sprite):
         # draw the health bars
         pygame.draw.rect(surface, bg_bar_color, bg_bar_position)
         pygame.draw.rect(surface, bar_color, bar_position)
+
+    def receive_damage(self, amount):
+        if self.health > 0:
+            self.health -= amount
+

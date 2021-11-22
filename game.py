@@ -15,6 +15,8 @@ class Game:
 
         self.pressed = {}
         self.spawn_monster()
+        self.spawn_monster()
+
 
     def spawn_monster(self):
         monster = Monster(self)

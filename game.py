@@ -1,6 +1,7 @@
 import pygame
 from player import Player
 from monster import Monster
+from snow_event import SnowFallEvent
 
 
 class Game:
@@ -13,6 +14,8 @@ class Game:
         self.player = Player(self)
         self.all_players.add(self.player)
 
+        self.snow_event = SnowFallEvent()
+
         # generates monsters
         self.all_monsters = pygame.sprite.Group()
 
@@ -22,6 +25,7 @@ class Game:
         self.is_playing = True
         self.spawn_monster()
         self.spawn_monster()
+        self.snow_event = SnowFallEvent()
 
     def update(self, screen):
         # apply player image
@@ -29,6 +33,9 @@ class Game:
 
         # update player health bar
         self.player.update_health_bar(screen)
+
+        # update event bar
+        self.snow_event.update_bar(screen)
 
         # collect the projectiles of the player
         for projectile in self.player.all_projectiles:
@@ -40,10 +47,18 @@ class Game:
         # apply the images of the group of monsters
         self.all_monsters.draw(screen)
 
+        # apply the images of the group of snowballs
+        self.snow_event.all_snowballs.draw(screen)
+
         # collect the monsters
         for monster in self.all_monsters:
             monster.move_forward()
             monster.update_health_bar(screen)
+
+        # collect the snowballs
+        for ball in self.snow_event.all_snowballs:
+            ball.fall  ()
+            # monster.update_health_bar(screen)
 
         # check if arrow keys are pressed
         if self.pressed.get(pygame.K_RIGHT) and self.player.rect.x + self.player.rect.width < screen.get_width():

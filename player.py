@@ -47,6 +47,3 @@ class Player(pygame.sprite.Sprite):
 
         else:
             self.game.game_over()
-
-
-

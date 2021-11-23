@@ -20,15 +20,17 @@ class Monster(pygame.sprite.Sprite):
         self.health -= amount
 
         # check if its health is <= 0
-        if not self.health > 0:
-            # # delete monster
-            # self.game.all_monsters.remove(self)
+        if self.health <= 0:
+            if self.game.snow_event.is_fully_loaded():
+            # delete monster if event bar is full
+                self.game.all_monsters.remove(self)
+                self.game.snow_event.attempt_fall()
 
-            # reappear as a new monster
-            self.rect.x = random.randint(0, 30)
-            self.velocity = random.randint(1, 3)
-            self.health = self.max_health
-
+            # reappear as a new monster (only if the event bar is not full)
+            else:
+                self.rect.x = random.randint(0, 30)
+                self.velocity = random.randint(1, 3)
+                self.health = self.max_health
 
     def update_health_bar(self, surface):
         # define color of health bar and its background

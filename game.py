@@ -14,7 +14,7 @@ class Game:
         self.player = Player(self)
         self.all_players.add(self.player)
 
-        self.snow_event = SnowFallEvent()
+        self.snow_event = SnowFallEvent(self)
 
         # generates monsters
         self.all_monsters = pygame.sprite.Group()
@@ -25,7 +25,8 @@ class Game:
         self.is_playing = True
         self.spawn_monster()
         self.spawn_monster()
-        self.snow_event = SnowFallEvent()
+        self.snow_event = SnowFallEvent(self)
+        self.player.rect.x = 430
 
     def update(self, screen):
         # apply player image
@@ -57,7 +58,7 @@ class Game:
 
         # collect the snowballs
         for ball in self.snow_event.all_snowballs:
-            ball.fall  ()
+            ball.fall()
             # monster.update_health_bar(screen)
 
         # check if arrow keys are pressed
@@ -77,4 +78,7 @@ class Game:
         # reset all monsters, player, etc
         self.is_playing = False
         self.all_monsters = pygame.sprite.Group()
+        self.snow_event.all_snowballs = pygame.sprite.Group()
+        self.snow_event.reset_percent()
         self.player.health = self.player.max_health
+        self.player.all_projectiles = pygame.sprite.Group()

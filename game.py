@@ -23,8 +23,9 @@ class Game:
 
     def start_game(self):
         self.is_playing = True
-        self.spawn_monster()
-        self.spawn_monster()
+        self.spawn_monster('monster1')
+        self.spawn_monster('monster2')
+        self.spawn_monster('monster3')
         self.snow_event = SnowFallEvent(self)
         self.player.rect.x = 430
 
@@ -67,8 +68,8 @@ class Game:
         elif self.pressed.get(pygame.K_LEFT) and self.player.rect.x > 0:
             self.player.move_left()
 
-    def spawn_monster(self):
-        monster = Monster(self)
+    def spawn_monster(self, monster_name):
+        monster = Monster(self, monster_name)
         self.all_monsters.add(monster)
 
     def check_collision(self, sprite, group):

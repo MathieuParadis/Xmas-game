@@ -28,7 +28,7 @@ class SnowFallEvent:
 
     def snow_fall(self):
         # loop for a value between 1 to 10
-        for i in range(1, 100):
+        for i in range(1, 10):
             self.all_snowballs.add(SnowBall(self))
 
     def update_bar(self, surface):

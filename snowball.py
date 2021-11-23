@@ -19,8 +19,10 @@ class SnowBall(pygame.sprite.Sprite):
         # check if the number of comets is equal to 0
         if len(self.snow_event.all_snowballs) == 0:
             self.snow_event.reset_percent()
-            self.snow_event.game.spawn_monster()
-            self.snow_event.game.spawn_monster()
+            self.snow_event.game.spawn_monster('monster1')
+            self.snow_event.game.spawn_monster('monster2')
+            self.snow_event.game.spawn_monster('monster3')
+
 
     def fall(self):
         self.rect.y += self.velocity

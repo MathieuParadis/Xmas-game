@@ -3,14 +3,21 @@ import random
 
 
 class Monster(pygame.sprite.Sprite):
-    def __init__(self, game):
+    def __init__(self, game, name):
         super().__init__()
         self.game = game
         self.health = 100
         self.max_health = 100
         self.attack = 5
         self.velocity = random.randint(1, 4)
-        self.image = pygame.image.load('assets/snowman.png')
+
+        if name == 'monster1':
+            self.image = pygame.image.load('assets/snowman.png')
+        elif name == 'monster2':
+            self.image = pygame.image.load('assets/reindeer.png')
+        elif name == 'monster3':
+            self.image = pygame.image.load('assets/elf.png')
+
         self.image = pygame.transform.scale(self.image, (180, 180))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, 30)

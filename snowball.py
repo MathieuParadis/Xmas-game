@@ -23,7 +23,6 @@ class SnowBall(pygame.sprite.Sprite):
             self.snow_event.game.spawn_monster('monster2')
             self.snow_event.game.spawn_monster('monster3')
 
-
     def fall(self):
         self.rect.y += self.velocity
 

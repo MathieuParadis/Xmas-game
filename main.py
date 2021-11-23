@@ -64,5 +64,5 @@ while running:
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # check if the mouse if in contact with play_button
-            if play_button_rect.collidepoint(event.pos) and game.is_playing == False:
+            if play_button_rect.collidepoint(event.pos) and not game.is_playing:
                 game.start_game()

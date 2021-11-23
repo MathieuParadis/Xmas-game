@@ -29,7 +29,7 @@ class Monster(pygame.sprite.Sprite):
         # check if its health is <= 0
         if self.health <= 0:
             if self.game.snow_event.is_fully_loaded():
-            # delete monster if event bar is full
+                # delete monster if event bar is full
                 self.game.all_monsters.remove(self)
                 self.game.snow_event.attempt_fall()
 
